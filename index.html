@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101820">
+<meta name="description" content="Langlois Couverture : couverture, rénovation, zinguerie et simulateur de toiture 3D à Lille et dans le Nord.">
+<title>Langlois Couverture | Toiture & Rénovation</title>
+
+<style>
+:root {
+  --bg: #101820;
+  --panel: #192631;
+  --gold: #d9ad62;
+  --text: #f7f8fa;
+  --muted: #b9c3cc;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select, textarea { font: inherit; }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #101820f5;
+  border-bottom: 1px solid #ffffff17;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo span { color: var(--gold); }
+
+nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+nav a { color: var(--muted); font-size: 14px; }
+nav a:hover { color: var(--gold); }
+
+.hero {
+  min-height: 540px;
+  padding: 90px 8%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #101820f5, #101820b8, #10182045),
+    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+}
+
+.hero-content { max-width: 740px; }
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(40px, 7vw, 74px);
+  line-height: 1.05;
+  margin: 20px 0;
+}
+
+h1 span { color: var(--gold); }
+
+.hero p {
+  max-width: 580px;
+  color: #e0e5e9;
+  line-height: 1.8;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--gold);
+  color: #161b20;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  min-height: 46px;
+}
+
+.btn:hover { filter: brightness(1.08); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffffff66;
+  padding: 13px 19px;
+  border-radius: 5px;
+  min-height: 46px;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 25px 8%;
+  background: #192631;
+  text-align: center;
+}
+
+.stats strong { display: block; color: var(--gold); font-size: 18px; }
+.stats span { font-size: 13px; color: var(--muted); }
+
+section { padding: 78px 7%; }
+
+.section-title {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 35px;
+}
+
+.section-title h2 {
+  font-size: clamp(29px, 4vw, 43px);
+  margin: 12px 0;
+}
+
+.section-title p { color: var(--muted); line-height: 1.7; }
+
+.configurator { background: #f0f2f4; color: #15202a; }
+
+.configurator .section-title p { color: #58636d; }
+
+.config-layout {
+  max-width: 1250px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(270px, .8fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.viewer {
+  position: relative;
+  min-height: 440px;
+  background: #dfe7ec;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px #10182016;
+}
+
+#roof3d {
+  width: 100%;
+  height: 440px;
+  display: block;
+  touch-action: pan-y;
+}
+
+.viewer-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 9px 12px;
+  background: #101820df;
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.viewer-help {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: #23313b;
+  pointer-events: none;
+}
+
+.controls {
+  background: white;
+  border-radius: 12px;
+  padding: 23px;
+  box-shadow: 0 10px 35px #10182010;
+}
+
+.controls h3 { margin: 0 0 7px; font-size: 22px; }
+.controls > p { color: #66717a; font-size: 14px; line-height: 1.5; }
+
+.field { margin-top: 22px; }
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 9px;
+}
+
+select, input[type="range"] { width: 100%; }
+
+select {
+  min-height: 46px;
+  padding: 10px;
+  border: 1px solid #cdd4da;
+  border-radius: 6px;
+  background: white;
+  color: #15202a;
+}
+
+input[type="range"] { accent-color: #a87525; }
+
+.color-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+}
+
+.color-choice {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 5px;
+  background: #f1f3f5;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.color-choice[aria-pressed="true"] { border-color: #a87525; }
+
+.swatch {
+  display: block;
+  width: 100%;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.color-choice small {
+  display: block;
+  font-size: 10px;
+  margin-top: 5px;
+  color: #25313b;
+  overflow-wrap: anywhere;
+}
+
+.control-buttons { display: flex; gap: 8px; margin-top: 22px; }
+.control-buttons button { flex: 1; }
+
+.secondary {
+  background: #e7ebef;
+  color: #15202a;
+}
+
+#status {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #58636d;
+  min-height: 18px;
+}
+
+.material-note {
+  margin-top: 18px;
+  border-left: 3px solid var(--gold);
+  padding: 11px 12px;
+  background: #f7f8fa;
+  color: #4d5963;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.services { background: #fff; color: #15202a; }
+
+.cards {
+  max-width: 1150px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #e3e7ea;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content { padding: 22px; }
+.card small { color: #9a6b23; font-weight: bold; letter-spacing: 1px; }
+.card h3 { margin: 12px 0; font-size: 21px; }
+.card p { color: #59636c; line-height: 1.7; font-size: 14px; }
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 45px;
+  align-items: center;
+}
+
+.about img {
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.about p { color: var(--muted); line-height: 1.8; }
+.about h2 { font-size: clamp(29px, 4vw, 42px); line-height: 1.2; }
+
+.checks { list-style: none; padding: 0; line-height: 2.2; }
+.checks li::before { content: "✓ "; color: var(--gold); font-weight: bold; }
+
+.contact { background: #f0f2f4; color: #15202a; }
+
+.contact-grid {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 22px;
+}
+
+.contact-info {
+  background: #15202a;
+  color: white;
+  padding: 27px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.contact-info p { color: var(--muted); line-height: 1.8; }
+.contact-info strong { display: block; color: var(--gold); }
+
+.contact-form {
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+.contact-form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cdd4da;
+  border-radius: 5px;
+  min-height: 46px;
+}
+
+.contact-form textarea { min-height: 110px; resize: vertical; }
+.contact-form button { width: 100%; margin-top: 17px; }
+
+footer {
+  padding: 28px 7%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  background: #090e12;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+footer strong { color: white; }
+
+@media (max-width: 850px) {
+  header { align-items: flex-start; flex-direction: column; }
+  nav { gap: 14px; }
+  .config-layout { grid-template-columns: 1fr; }
+  .viewer, #roof3d { min-height: 330px; height: 380px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 540px) {
+  section { padding: 55px 5%; }
+  .hero { padding: 65px 6%; min-height: 500px; }
+  .stats { padding: 20px 4%; gap: 8px; }
+  .stats strong { font-size: 14px; }
+  .stats span { font-size: 11px; }
+  .cards { grid-template-columns: 1fr; }
+  .viewer, #roof3d { height: 320px; min-height: 320px; }
+  .controls { padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#accueil" class="logo">LANGLOIS <span>COUVERTURE</span></a>
+  <nav aria-label="Navigation principale">
+    <a href="#accueil">Accueil</a>
+    <a href="#services">Prestations</a>
+    <a href="#simulateur">Simulateur 3D</a>
+    <a href="#entreprise">Entreprise</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <div class="hero-content">
+    <span class="eyebrow">Couverture · Zinguerie · Rénovation</span>
+    <h1>Une toiture soignée.<br><span>Une maison protégée.</span></h1>
+    <p>
+      Découvrez nos prestations de couverture et personnalisez l'apparence
+      de votre toiture grâce à notre simulateur 3D interactif.
+    </p>
+    <div class="actions">
+      <a class="btn" href="#simulateur">Essayer le simulateur 3D</a>
+      <a class="btn-outline" href="#contact">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div><strong>Couverture</strong><span>Tuiles et ardoises</span></div>
+  <div><strong>Zinguerie</strong><span>Gouttières et raccords</span></div>
+  <div><strong>Nord (59)</strong><span>Lille et alentours</span></div>
+</div>
+
+<section class="configurator" id="simulateur">
+  <div class="section-title">
+    <span class="eyebrow">Configurateur interactif</span>
+    <h2>Imaginez votre future toiture</h2>
+    <p>
+      Modifiez les matériaux, la couleur et la pente du toit.
+      Faites glisser votre doigt sur le modèle pour observer la maison sous différents angles.
+    </p>
+  </div>
+
+  <div class="config-layout">
+    <div class="viewer">
+      <div class="viewer-label">APERÇU 3D · MODÈLE INDICATIF</div>
+      <canvas id="roof3d" aria-label="Modèle 3D interactif d'une maison avec toiture personnalisable"></canvas>
+      <div class="viewer-help">Glissez pour tourner · Pincez pour zoomer</div>
+    </div>
+
+    <div class="controls">
+      <h3>Personnaliser le toit</h3>
+      <p>Choisissez votre couverture et observez son apparence sur la maquette.</p>
+
+      <div class="field">
+        <label for="material">Matériau de couverture</label>
+        <select id="material">
+          <option value="mechanical">Tuiles mécaniques</option>
+          <option value="flat">Tuiles plates</option>
+          <option value="slate">Ardoises</option>
+          <option value="zinc">Zinc à joints debout</option>
+          <option value="steel">Bac acier nervuré</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Couleur du toit</label>
+        <div class="color-list" id="colors">
+          <button class="color-choice" type="button" data-color="#963e32" aria-label="Rouge tuile" aria-pressed="true">
+            <span class="swatch" style="background:#963e32"></span><small>Rouge</small>
+          </button>
+          <button class="color-choice" type="button" data-color="#494c50" aria-label="Gris ardoise" aria-pressed="false">
+            <span class="swatch" style="background:#494c50"></span><small>Gris</small>
+          </button>
+          <button class="color-choice" type="button" data-color="#343d38" aria-label="Vert foncé" aria-pressed="false">
+            <span class="swatch" style="background:#343d38"></span><small>Vert</small>
+          </button>
+          <button class="color-choice" type="button" data-color="#704a34" aria-label="Brun" aria-pressed="false">
+            <span class="swatch" style="background:#704a34"></span><small>Brun</small>
+          </button>
+          <button class="color-choice" type="button" data-color="#a4a7a8" aria-label="Gris clair" aria-pressed="false">
+            <span class="swatch" style="background:#a4a7a8"></span><small>Clair</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pitch">Pente du toit : <output id="pitchValue">35°</output></label>
+        <input id="pitch" type="range" min="20" max="50" value="35">
+      </div>
+
+      <div class="field">
+        <label for="wallColor">Couleur des murs</label>
+        <select id="wallColor">
+          <option value="#e6d9c5">Pierre claire</option>
+          <option value="#f4f1e9">Blanc cassé</option>
+          <option value="#b9b3a8">Gris clair</option>
+          <option value="#bd9874">Sable</option>
+        </select>
+      </div>
+
+      <div class="control-buttons">
+        <button type="button" class="btn secondary" id="reset">Réinitialiser</button>
+        <button type="button" class="btn" id="rotation">Rotation auto</button>
+      </div>
+
+      <div id="status" role="status" aria-live="polite">Préparation du modèle 3D…</div>
+
+      <div class="material-note">
+        <strong>À savoir :</strong> cette maquette sert à visualiser des styles.
+        Elle ne représente pas les dimensions réelles d'un bâtiment et ne constitue
+        pas un plan de pose, un calcul de charge ou un devis.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-title">
+    <span class="eyebrow">Nos prestations</span>
+    <h2>Les travaux de couverture</h2>
+    <p>Une toiture doit être adaptée au bâtiment, aux matériaux et aux conditions du chantier.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Maison avec toiture">
+      <div class="card-content">
+        <small>01 · COUVERTURE</small>
+        <h3>Réfection de toiture</h3>
+        <p>Étude de la couverture existante et remplacement des éléments prévus au projet, selon l'état du toit.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Détails d'une habitation">
+      <div class="card-content">
+        <small>02 · RÉPARATION</small>
+        <h3>Réparation et entretien</h3>
+        <p>Repérage des désordres visibles et réparation des zones de couverture concernées.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80" alt="Maison contemporaine">
+      <div class="card-content">
+        <small>03 · ZINGUERIE</small>
+        <h3>Gouttières et raccords</h3>
+        <p>Travaux de zinguerie et gestion de l'évacuation des eaux pluviales selon les besoins du bâtiment.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="about" id="entreprise">
+  <div>
+    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1100&q=85" alt="Maison et détails de construction">
+  </div>
+  <div>
+    <span class="eyebrow">Langlois Couverture</span>
+    <h2>Préparer votre projet de toiture</h2>
+    <p>
+      Le choix d'une couverture dépend de la pente, de la charpente,
+      de l'existant et des règles applicables au bâtiment.
+    </p>
+    <ul class="checks">
+      <li>Couverture en tuiles ou ardoises</li>
+      <li>Réparation et rénovation</li>
+      <li>Zinguerie et évacuation des eaux</li>
+      <li>Étude de votre demande avant devis</li>
+    </ul>
+    <a class="btn" href="#contact">Présenter mon projet</a>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-title">
+    <span class="eyebrow">Contact</span>
+    <h2>Parlons de votre toiture</h2>
+    <p>Remplissez les informations ci-dessous pour préparer un e-mail de demande de devis.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>LANGLOIS COUVERTURE</h3>
+      <p><strong>Zone indiquée</strong>Lille et environs · Nord (59)</p>
+      <p><strong>E-mail</strong>GL.couverture.lille@gmail.com</p>
+      <p><strong>Votre projet</strong>Décrivez les travaux souhaités et le type de toiture.</p>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <label for="name">Nom</label>
+      <input id="name" required autocomplete="name" placeholder="Votre nom">
+
+      <label for="email">Adresse e-mail</label>
+      <input id="email" required type="email" autocomplete="email" placeholder="vous@exemple.fr">
+
+      <label for="work">Type de travaux</label>
+      <select id="work" required>
+        <option value="">Choisir</option>
+        <option>Réfection de toiture</option>
+        <option>Réparation de toiture</option>
+        <option>Tuiles ou ardoises</option>
+        <option>Zinguerie et gouttières</option>
+        <option>Autre demande</option>
+      </select>
+
+      <label for="details">Description du projet</label>
+      <textarea id="details" required placeholder="Décrivez votre projet…"></textarea>
+
+      <button class="btn" type="submit">Préparer l'e-mail</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div><strong>LANGLOIS COUVERTURE</strong><br>Couverture · Zinguerie · Rénovation</div>
+  <div>© <span id="year"></span> Langlois Couverture</div>
+</footer>
+
+<script type="module">
+const statusEl = document.getElementById("status");
+const canvas = document.getElementById("roof3d");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const subject = encodeURIComponent("Demande de devis - " + document.getElementById("work").value);
+  const body = encodeURIComponent(
+    "Nom : " + document.getElementById("name").value + "\n" +
+    "E-mail : " + document.getElementById("email").value + "\n" +
+    "Travaux : " + document.getElementById("work").value + "\n\n" +
+    "Description :\n" + document.getElementById("details").value
+  );
+
+  window.location.href =
+    "mailto:GL.couverture.lille@gmail.com?subject=" + subject + "&body=" + body;
+});
+
+try {
+  const THREE = await import(
+    "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+  );
+  const { OrbitControls } = await import(
+    "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js"
+  );
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color("#dfe8ed");
+  scene.fog = new THREE.Fog("#dfe8ed", 16, 32);
+
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+  camera.position.set(8, 6, 10);
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: false
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.minDistance = 5;
+  controls.maxDistance = 19;
+  controls.maxPolarAngle = Math.PI * 0.49;
+  controls.target.set(0, 1.1, 0);
+
+  scene.add(new THREE.HemisphereLight("#ffffff", "#7d858b", 2.0));
+
+  const sun = new THREE.DirectionalLight("#fff2dc", 3.0);
+  sun.position.set(6, 10, 7);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.camera.left = -8;
+  sun.shadow.camera.right = 8;
+  sun.shadow.camera.top = 8;
+  sun.shadow.camera.bottom = -8;
+  scene.add(sun);
+
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(200, 200),
+    new THREE.MeshStandardMaterial({ color: "#c8d2d7", roughness: 1 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.04;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  const house = new THREE.Group();
+  scene.add(house);
+
+  const wallMaterial = new THREE.MeshStandardMaterial({
+    color: "#e6d9c5", roughness: 0.95
+  });
+  const trimMaterial = new THREE.MeshStandardMaterial({
+    color: "#f5f1e9", roughness: 0.8
+  });
+  const roofBaseMaterial = new THREE.MeshStandardMaterial({
+    color: "#713c31", roughness: 0.9
+  });
+  const tileMaterial = new THREE.MeshStandardMaterial({
+    color: "#963e32", roughness: 0.86
+  });
+  const darkMaterial = new THREE.MeshStandardMaterial({
+    color: "#343a3e", roughness: 0.85
+  });
+  const glassMaterial = new THREE.MeshStandardMaterial({
+    color: "#8ab3c6", metalness: 0.15, roughness: 0.25
+  });
+
+  const walls = new THREE.Mesh(
+    new THREE.BoxGeometry(5.2, 2.6, 4.2),
+    wallMaterial
+  );
+  walls.position.y = 1.3;
+  walls.castShadow = true;
+  walls.receiveShadow = true;
+  house.add(walls);
+
+  // Façade décorative : porte et fenêtres.
+  function addBox(parent, width, height, depth, material, x, y, z) {
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(width, height, depth),
+      material
+    );
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    parent.add(mesh);
+    return mesh;
+  }
+
+  addBox(house, 0.85, 1.65, 0.09, trimMaterial, 0.7, 0.83, 2.15);
+  addBox(house, 0.68, 1.35, 0.11, darkMaterial, 0.7, 0.70, 2.21);
+
+  for (const x of [-1.35, 1.9]) {
+    addBox(house, 0.88, 0.8, 0.10, trimMaterial, x, 1.65, 2.15);
+    addBox(house, 0.68, 0.58, 0.12, glassMaterial, x, 1.65, 2.22);
+    addBox(house, 0.06, 0.8, 0.13, trimMaterial, x, 1.65, 2.29);
+    addBox(house, 0.88, 0.06, 0.13, trimMaterial, x, 1.65, 2.29);
+  }
+
+  let roofGroup = new THREE.Group();
+  house.add(roofGroup);
+
+  let roofColor = "#963e32";
+  let materialType = "mechanical";
+  let pitchDegrees = 35;
+  let wallColor = "#e6d9c5";
+
+  function makeRoof() {
+    house.remove(roofGroup);
+
+    roofGroup = new THREE.Group();
+    house.add(roofGroup);
+
+    const angle = THREE.MathUtils.degToRad(pitchDegrees);
+    const halfWidth = 2.95;
+    const roofLength = 4.75;
+    const slopeLength = halfWidth / Math.cos(angle);
+    const roofY = 2.62;
+    const rows = materialType === "slate" ? 10 : 7;
+    const cols = materialType === "flat" ? 9 : 7;
+    const rowLength = roofLength / rows;
+    const tileWidth = (slopeLength / cols) * 1.02;
+
+    const isMetal = materialType === "zinc" || materialType === "steel";
+
+    roofBaseMaterial.color.set(roofColor);
+    tileMaterial.color.set(roofColor);
+
+    // Deux supports inclinés sous les éléments de couverture.
+    for (const side of [-1, 1]) {
+      const support = new THREE.Mesh(
+        new THREE.BoxGeometry(slopeLength, 0.12, roofLength),
+        roofBaseMaterial
+      );
+      support.rotation.z = side * angle;
+      support.position.set(
+        side * halfWidth / 2,
+        roofY - halfWidth / 2 * Math.tan(angle),
+        0
+      );
+      support.castShadow = true;
+      support.receiveShadow = true;
+      roofGroup.add(support);
+
+      for (let col = 0; col < cols; col++) {
+        const distance = (col + 0.5) * slopeLength / cols;
+        const x = side * distance * Math.cos(angle);
+        const y = roofY - distance * Math.sin(angle) + 0.09;
+
+        for (let row = 0; row < rows; row++) {
+          const z = -roofLength / 2 + (row + 0.5) * rowLength;
+
+          let w = tileWidth;
+          let d = rowLength * 0.98;
+          let h = 0.07;
+          let material = tileMaterial;
+
+          if (materialType === "flat") {
+            w *= 0.88;
+            d *= 0.77;
+            h = 0.065;
+          } else if (materialType === "slate") {
+            w *= 0.9;
+            d *= 0.87;
+            h = 0.045;
+            material = darkMaterial;
+          } else if (materialType === "zinc") {
+            w *= 0.98;
+            d = rowLength * 0.99;
+            h = 0.035;
+          } else if (materialType === "steel") {
+            w *= 0.98;
+            d = rowLength * 0.99;
+            h = 0.05;
+          }
+
+          const tile = new THREE.Mesh(
+            new THREE.BoxGeometry(w, h, d),
+            material
+          );
+
+          tile.rotation.z = side * angle;
+          tile.position.set(x, y, z);
+          tile.castShadow = true;
+          tile.receiveShadow = true;
+          roofGroup.add(tile);
+
+          if (materialType === "steel") {
+            const rib = new THREE.Mesh(
+              new THREE.BoxGeometry(0.035, 0.035, d * 0.99),
+              darkMaterial
+            );
+            rib.rotation.z = side * angle;
+            rib.position.set(x, y + 0.035, z);
+            roofGroup.add(rib);
+          }
+        }
+      }
+    }
+
+    // Faîtière.
+    const ridge = new THREE.Mesh(
+      new THREE.BoxGeometry(0.22, 0.15, roofLength + 0.16),
+      new THREE.MeshStandardMaterial({
+        color: materialType === "slate" ? "#343a3e" : roofColor,
+        roughness: 0.72
+      })
+    );
+    ridge.position.set(0, roofY + 0.025, 0);
+    ridge.castShadow = true;
+    roofGroup.add(ridge);
+
+    // Petit conduit de cheminée.
+    const chimney = new THREE.Mesh(
+      new THREE.BoxGeometry(0.45, 0.95, 0.42),
+      new THREE.MeshStandardMaterial({ color: "#b8a99a", roughness: 1 })
+    );
+    chimney.position.set(-1.05, roofY + 0.55, -0.85);
+    chimney.castShadow = true;
+    roofGroup.add(chimney);
+
+    const chimneyCap = new THREE.Mesh(
+      new THREE.BoxGeometry(0.52, 0.10, 0.49),
+      darkMaterial
+    );
+    chimneyCap.position.set(-1.05, roofY + 1.05, -0.85);
+    roofGroup.add(chimneyCap);
+
+    // Petite fenêtre de toit.
+    const skylight = new THREE.Mesh(
+      new THREE.BoxGeometry(0.82, 0.10, 0.9),
+      glassMaterial
+    );
+    skylight.rotation.z = angle;
+    skylight.position.set(0.95, roofY - 0.6 * Math.tan(angle) + 0.15, 0.65);
+    skylight.castShadow = true;
+    roofGroup.add(skylight);
+  }
+
+  makeRoof();
+
+  // Commandes du configurateur.
+  document.getElementById("material").addEventListener("change", event => {
+    materialType = event.target.value;
+    makeRoof();
+    statusEl.textContent = "Matériau sélectionné : " + event.target.selectedOptions[0].text + ".";
+  });
+
+  document.querySelectorAll(".color-choice").forEach(button => {
+    button.addEventListener("click", () => {
+      roofColor = button.dataset.color;
+      document.querySelectorAll(".color-choice").forEach(item => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+      makeRoof();
+      statusEl.textContent = "Couleur de toiture modifiée.";
+    });
+  });
+
+  document.getElementById("pitch").addEventListener("input", event => {
+    pitchDegrees = Number(event.target.value);
+    document.getElementById("pitchValue").textContent = pitchDegrees + "°";
+    makeRoof();
+  });
+
+  document.getElementById("wallColor").addEventListener("change", event => {
+    wallColor = event.target.value;
+    wallMaterial.color.set(wallColor);
+  });
+
+  document.getElementById("reset").addEventListener("click", () => {
+    materialType = "mechanical";
+    roofColor = "#963e32";
+    pitchDegrees = 35;
+    wallColor = "#e6d9c5";
+
+    document.getElementById("material").value = materialType;
+    document.getElementById("pitch").value = pitchDegrees;
+    document.getElementById("pitchValue").textContent = pitchDegrees + "°";
+    document.getElementById("wallColor").value = wallColor;
+
+    document.querySelectorAll(".color-choice").forEach(button => {
+      button.setAttribute("aria-pressed", String(button.dataset.color === roofColor));
+    });
+
+    wallMaterial.color.set(wallColor);
+    makeRoof();
+
+    controls.reset();
+    camera.position.set(8, 6, 10);
+    controls.target.set(0, 1.1, 0);
+    controls.update();
+
+    statusEl.textContent = "Configuration réinitialisée.";
+  });
+
+  let autoRotate = false;
+  const rotationButton = document.getElementById("rotation");
+
+  rotationButton.addEventListener("click", () => {
+    autoRotate = !autoRotate;
+    controls.autoRotate = autoRotate;
+    controls.autoRotateSpeed = 1.2;
+    rotationButton.textContent = autoRotate ? "Arrêter la rotation" : "Rotation auto";
+    statusEl.textContent = autoRotate
+      ? "Rotation automatique activée."
+      : "Rotation automatique arrêtée.";
+  });
+
+  const resize = () => {
+    const width = Math.max(1, canvas.clientWidth);
+    const height = Math.max(1, canvas.clientHeight);
+
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  };
+
+  const observer = new ResizeObserver(resize);
+  observer.observe(canvas);
+  resize();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+
+  animate();
+  statusEl.textContent = "Le simulateur 3D est prêt. Touchez le modèle pour le faire tourner.";
+
+} catch (error) {
+  console.error(error);
+  statusEl.textContent =
+    "Le simulateur 3D n'a pas pu se charger. Vérifiez votre connexion Internet puis rechargez la page.";
+}
+</script>
+</body>
+</html>
